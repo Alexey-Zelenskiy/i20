@@ -1,0 +1,65 @@
+
+<link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" />
+<header class="header">
+  <div class="logo header__logo"></div>
+  <nav class="nav">
+
+  </nav>
+</header>
+<main>
+  <div class="hero">
+    <span class="hero__subtitle">Эпизод IX</span>
+    <h1 class="hero__title">I20</h1>
+    <p class="hero__descriprion">
+      Фильм завершает невероятную историю семьи Скайуокеров, длящуюся уже
+      более сорока лет, и обещает дать ответы на все загадки из предыдущих
+      серий. Зрителя ожидают старые и новые герои, уникальные миры,
+      увлекательные путешествия на край Галактики и грандиозный финал
+      фантастической саги
+    </p>
+    <div class="characters">
+      <label>
+        <input
+          type="text"
+          placeholder="Введите имя персонажа"
+          [(ngModel)]="searchString"
+        >
+      </label>
+      <span class="hero__premier">Персонажы</span>
+      <div class="slider">
+        <div class="character__item"
+             *ngFor="let characters of appService.characters | AppFilterPipe: searchString;"
+             (click)="onChange(characters.height)||open(content)">
+          <div class="character__date">{{characters.birth_year}}</div>
+          <h3 class="character__name">Имя :
+            {{characters.name}}
+          </h3>
+          <div class="character__skin"><span class="character__rating-label">{{characters.skin_color}}</span></div>
+        </div>
+      </div>
+      <ng-template #content let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title"><p>Имя : {{appService.name}}</p></h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Пол : {{appService.gender}}</p>
+          <p>Рост : {{appService.height}}</p>
+          <p>Вес : {{appService.mass}}</p>
+          <p>Цвет глаз : {{appService.eyeColor}}</p>
+          <p>Цвет скина : {{appService.skinColor}}</p>
+          <p>Цвет волос : {{appService.hairColor}}</p>
+          <p>Год рождения : {{appService.birthYear}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Ок</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</main>
+
+<!--<p *ngIf="loading">Loading...</p>-->
